@@ -55,9 +55,27 @@ ${codeContext}`
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}))
-    if (response.status === 401) throw new Error('Invalid Groq API key. Check your key and try again.')
-    if (response.status === 429) throw new Error('Groq rate limit hit. Wait a moment and retry.')
-    throw new Error(err.error?.message || `Groq API error: ${response.status}`)
+    const message = err.error?.message || `Groq API error: ${response.status}`
+
+    if (response.status === 401) {
+      throw new Error('Invalid Groq API key. Check your key and try again.')
+    }
+
+    if (response.status === 429) {
+      // Generic rate-limit message
+      throw new Error('Groq rate limit hit. Wait a moment and retry.')
+    }
+
+    // Friendlier message when the request/context is too large for the current tier
+    const lower = message.toLowerCase()
+    if (lower.includes('request too large') || lower.includes('tokens per minute')) {
+      throw new Error(
+        'This codebase + question is too large for the current Groq free-tier limits. ' +
+        'Try a smaller repo/ZIP or a more focused question.'
+      )
+    }
+
+    throw new Error(message)
   }
 
   const data = await response.json()

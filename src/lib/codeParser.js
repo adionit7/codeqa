@@ -140,7 +140,7 @@ export async function parseGitHubRepo(repoUrl) {
   return { files, owner, repo, branch }
 }
 
-export function buildContext(files, maxChars = 80000) {
+export function buildContext(files, maxChars = 40000) {
   // Build a condensed context from all files for AI
   const entries = Object.entries(files)
   let context = ''
