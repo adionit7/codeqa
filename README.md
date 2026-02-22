@@ -4,7 +4,7 @@ Ask natural-language questions about any codebase and get answers backed by exac
 
 ## Live Demo
 
-> Deployed on Vercel — see the submission link.
+> **[https://codeqa-sandy.vercel.app/](https://codeqa-sandy.vercel.app/)** — deployed on Vercel
 
 ## Features
 
@@ -37,7 +37,7 @@ Go to [console.groq.com](https://console.groq.com) → sign up (free, no credit 
 ### 2. Run locally
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/codeqa
+git clone https://github.com/adionit7/codeqa
 cd codeqa
 npm install
 npm run dev
